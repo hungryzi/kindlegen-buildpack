@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# bin/compile <build-dir> <cache-dir>
+
+indent() {
+  sed -u 's/^/       /'
+}
+
+BUILD_DIR=$1
+KINDLEGEN_DIR=$BUILD_DIR/vendor/kindlegen
+BIN_DIR=$KINDLEGEN_DIR/bin
+URL="https://kindlegen.s3.amazonaws.com/kindlegen_linux_2.6_i386_v2_9.tar.gz" 
+
+echo "-----> Installing Kindlegen"
+mkdir -p $BIN_DIR
+
+echo Vendoring $URL | indent
+curl -s $URL | tar -xz -C $KINDLEGEN_DIR
+
+echo Moving binary | indent
+mv $KINDLEGEN_DIR/kindlegen $BIN_DIR/
