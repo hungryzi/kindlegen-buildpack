@@ -8,6 +8,7 @@ indent() {
 BUILD_DIR=$1
 KINDLEGEN_DIR=$BUILD_DIR/vendor/kindlegen
 BIN_DIR=$KINDLEGEN_DIR/bin
+PROFILED_DIR=$1/.profile.d
 URL="https://kindlegen.s3.amazonaws.com/kindlegen_linux_2.6_i386_v2_9.tar.gz" 
 
 echo "-----> Installing Kindlegen"
@@ -18,3 +19,7 @@ curl -s $URL | tar -xz -C $KINDLEGEN_DIR
 
 echo Moving binary | indent
 mv $KINDLEGEN_DIR/kindlegen $BIN_DIR/
+
+echo Setting PATH | indent
+mkdir -p PROFILED_DIR
+echo PATH=\$PATH:$BIN_DIR > $PROFILED_DIR/kindlegen.sh
